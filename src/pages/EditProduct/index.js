@@ -11,6 +11,7 @@ import { deleteProduct, editProduct } from '../../services/products/operations';
 import { deleteProductCopy, editProductCopy } from '../../services/newProducts/actions';
 import { AlertDialog, BasicButton } from '../../components';
 import { selectorNewProducts } from '../../services/newProducts/selectors';
+import { selectorProducts } from '../../services/products/selectors';
 
 export const EditProduct = memo(
   ({
@@ -19,8 +20,9 @@ export const EditProduct = memo(
       params: { productId },
     },
   }) => {
+    const list = useSelector(selectorProducts);
     const newList = useSelector(selectorNewProducts);
-    const product = newList.find((el) => el.id == productId);
+    const product = [...list, ...newList].find((el) => el.id == productId);
     const [editItem, setEditItem] = useState(product);
     const dispatch = useDispatch();
     const [open, setOpen] = React.useState(false);
@@ -43,7 +45,7 @@ export const EditProduct = memo(
     };
 
     const handleDelete = (id) => () => {
-      // dispatch(deleteProduct(id));
+      dispatch(deleteProduct(id)); // для добавленных продуктов не работает из-за другого формата id
       dispatch(deleteProductCopy(id));
     };
 

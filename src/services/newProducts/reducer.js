@@ -2,7 +2,18 @@
 import { actionTypes } from './actions';
 
 const initialState = {
-  data: JSON.parse(window.localStorage.getItem('newProducts')) ?? [],
+  data: JSON.parse(window.localStorage.getItem('newProducts')) ?? [
+    {
+      title: 'Car',
+      price: '30000',
+      category: 'Auto',
+      description: 'Best auto',
+      publication: true,
+      date: 1634804290181,
+      id: '81f0853-d407-8d75-b73a-f033f4c240d',
+      image: 'https://i.pravatar.cc/420',
+    },
+  ],
   isPublication: true,
 };
 

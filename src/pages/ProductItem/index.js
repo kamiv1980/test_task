@@ -5,7 +5,7 @@ import styles from './styles.module.css';
 import { selectorIsLoading } from '../../services/overlay/selectors';
 import { BasicButton, Loader } from '../../components';
 import { selectorProducts } from '../../services/products/selectors';
-import { selectorIsPublication, selectorNewProducts } from '../../services/newProducts/selectors';
+import { selectorNewProducts } from '../../services/newProducts/selectors';
 import Stack from '@mui/material/Stack';
 import { Link } from 'react-router-dom';
 
@@ -18,7 +18,6 @@ export const ProductItem = memo(
   }) => {
     const list = useSelector(selectorProducts);
     const newList = useSelector(selectorNewProducts);
-    const isPublic = useSelector(selectorIsPublication);
     const isLoading = useSelector(selectorIsLoading);
     const product = [...list, ...newList].find((el) => el.id == productId);
 
@@ -37,11 +36,9 @@ export const ProductItem = memo(
           <p className={styles.bold}>Description</p>
           <p>{product.description} </p>
           <Stack spacing={2} direction="row">
-            {!isPublic && (
-              <Link className={styles.link} to={{ pathname: `/products/${product.id}/edit` }}>
-                <BasicButton title={'Edit'} />
-              </Link>
-            )}
+            <Link className={styles.link} to={{ pathname: `/products/${product.id}/edit` }}>
+              <BasicButton title={'Edit'} />
+            </Link>
             <BasicButton onClick={goBack} title={'Go back'} />
           </Stack>
         </section>
